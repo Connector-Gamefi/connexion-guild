@@ -1,0 +1,152 @@
+# development configuration
+server:
+  port: 80
+  servlet:
+    # access path
+    context-path: /
+  tomcat:
+    # tomcat coding
+    uri-encoding: UTF-8
+    # Number of connections allowed
+    accept-count: 1000
+    threads:
+      # tomcat max threads
+      max: 800
+      # tomcat init thread
+      min-spare: 100
+ 
+# log configuration
+logging:
+  level:
+    com.connexion.cps: debug
+    org.springframework: warn
+
+# user configuration
+user:
+  password:
+    # user login retry count
+    maxRetryCount: 5
+  expire:
+    time: 30
+
+# Spring configuration
+spring:
+  # thymeleaf template
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # disable cache
+    cache: false
+  # i18n resources
+  messages:
+    # i18n file path
+    basename: static/i18n/messages
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  profiles:
+    active: develop
+  # file upload configuration
+  servlet:
+     multipart:
+       # single file size
+       max-file-size:  100MB
+       # setting total file size
+       max-request-size:  200MB
+  # devtools
+  devtools:
+    restart:
+      # switch
+      enabled: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+# MyBatis
+mybatis:
+    # aliases package name
+    typeAliasesPackage: com.connexion.cps.domain
+    # mapper locations
+    mapperLocations: classpath*:mapper/**/*Mapper.xml
+    # mybatis configlocation
+    configLocation: classpath:mybatis/mybatis-config.xml
+
+# PageHelper
+pagehelper: 
+  helperDialect: mysql
+  supportMethodsArguments: true
+  params: count=countSql
+
+# Shiro
+shiro:
+  user:
+    # login
+    loginUrl: /login
+    # auth url
+    unauthorizedUrl: /unauth
+    # index
+    indexUrl: /index
+    # captcha
+    captchaEnabled: true
+    # captcha type
+    captchaType: math
+  cookie:
+    # setting cookie domain
+    domain: 
+    # setting cookie path
+    path: /
+    # setting http only
+    httpOnly: true
+    # setting life cycle
+    maxAge: 30
+    # setting cipherKey
+    cipherKey: 
+  session:
+    # session expire time
+    expireTime: 30
+    # sync period
+    dbSyncPeriod: 1
+    # valida interval time
+    validationInterval: 10
+    # max session users
+    maxSession: -1
+    # kick user
+    kickoutAfter: false
+  rememberMe:
+    # remeber
+    enabled: true
+# Prevent XSS attacks
+xss: 
+  # filter switch
+  enabled: true
+  # exclude url
+  excludes: /system/notice/*
+  # match url
+  urlPatterns: /system/*,/monitor/*,/tool/*
+
+# Swagger
+swagger:
+  # swagger switch
+  enabled: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+
+network-chain:
+  info:
+    - chainId: 1
+      network: ethereum
+    - chainId: 4
+      network: rinkeby
+    - chainId: 56
+      network: bsc
+
+oss:
+  storage:
+    type: storage
